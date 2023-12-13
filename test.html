@@ -1,0 +1,29 @@
+<HTML>
+    <html>
+        <body>
+            <form action="http://localhost:3000/post" method="post">
+                <label for="img">選擇圖片:</label>
+                <input type="file" id="img" name="img" accept="image/*">
+                <button type="submit">傳送</button>
+                <br><br>
+                <img id="previewImage" alt="Preview" style="max-width: 200px; max-height: 200px;" hidden>
+            </form>
+            <script>
+                const imageInput = document.getElementById('img');
+                const previewImage = document.getElementById('previewImage');
+                function previewSelectedImage() {
+                   const file = imageInput.files[0];
+                   if (file) {
+                      const reader = new FileReader();
+                      reader.readAsDataURL(file);
+                      reader.onload = function(e) {
+                         previewImage.src = e.target.result;
+                         previewImage.removeAttribute('hidden')
+                      }
+                   }
+                }
+                imageInput.addEventListener('change', previewSelectedImage);
+             </script>
+        </body>
+    </html>
+</HTML>
