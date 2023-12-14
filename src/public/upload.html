@@ -1,0 +1,58 @@
+<HTML>
+    <html>
+        <body>
+            <form action="http://localhost:3000/upload" method="post" enctype="multipart/form-data">
+                <label for="img">選擇圖片:</label>
+                <input type="file" id="img" name="img" accept="image/*">
+                <p>
+                    <label>種類:</label> <!--kind 單選 radio-->
+                    <label><input type="radio" name="kind" value="短袖">短袖</label>
+                    <label><input type="radio" name="kind" value="長袖">長袖</label>
+                    <label><input type="radio" name="kind" value="褲子">褲子</label>
+                    <label><input type="radio" name="kind" value="裙子">裙子</label>
+                </p>
+                <p>
+                    <label >長度:</label> <!--long 單選 radio-->
+                    <label><input type="radio" name="long" value="短版">短版</label>
+                    <label><input type="radio" name="long" value="長版">長版</label>
+                </p>
+                <p>
+                    <label >款式:</label> <!--type 多選 radio-->
+                    <label><input type="radio" name="type" value="寬版">寬版</label>
+                    <label><input type="radio" name="type" value="窄版">窄版</label>
+                </p>
+                <p>
+                    <label>主要顏色:</label> <!--color 多選 checkbox-->
+                    <label><input type="checkbox" name="color1" value="black">黑色</label>
+                    <label><input type="checkbox" name="color1" value="white">白色</label>
+                    <label><input type="checkbox" name="color3" value="blue">藍色</label>
+                    <label><input type="checkbox" name="color4" value="yellow">黃色</label>
+                    <label><input type="checkbox" name="color5" value="red">紅色</label>
+                    <label><input type="checkbox" name="color6" value="green">綠色</label>
+                    <label><input type="checkbox" name="color7" value="gray">灰色</label>
+                    <label><input type="checkbox" name="color8" value="brown">棕色</label>
+                </p>
+
+                <button type="submit">傳送</button>
+                <br><br>
+                <img id="previewImage" alt="Preview" style="max-width: 200px; max-height: 200px;" hidden>
+            </form>
+            <script>
+                const imageInput = document.getElementById('img');
+                const previewImage = document.getElementById('previewImage');
+                function previewSelectedImage() {
+                   const file = imageInput.files[0];
+                   if (file) {
+                      const reader = new FileReader();
+                      reader.readAsDataURL(file);
+                      reader.onload = function(e) {
+                         previewImage.src = e.target.result;
+                         previewImage.removeAttribute('hidden')
+                      }
+                   }
+                }
+                imageInput.addEventListener('change', previewSelectedImage);
+             </script>
+        </body>
+    </html>
+</HTML>
