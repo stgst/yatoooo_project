@@ -3,11 +3,12 @@ const path = require('path')
 const sqlite3 = require('sqlite3').verbose()
 var dbFile = '../../../data/user.sqlite'
 
-const db = new sqlite3.Database(path.resolve(__dirname + dbFile)) // 定義一個 user.sqlite 的 database 物件
+const db = new sqlite3.Database(path.resolve(__dirname + dbFile), sqlite3.OPEN_READWRITE) // 定義一個 user.sqlite 的 database 物件
 const router = express.Router()
 
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, pwd TEXT)")
+    db.run("CREATE TABLE IF NOT EXISTS clothes (id INTEGER PRIMARY KEY, name TEXT, shorts JSON, long JSON, pants JSON, skirts JSON)")
 
     router.use(express.json()); // 讓 json 資料轉換成物件
     router.use(express.urlencoded({ extended: true }));
