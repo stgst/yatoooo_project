@@ -12,7 +12,7 @@ db.serialize(() => {
     // http://localhost:3000/register/
 
     router.get('/', (req, res)=> {
-        res.sendFile(path.resolve(__dirname + '../../public/register.html'));
+        res.sendFile(path.resolve(__dirname + '../../views/register.html'));
     })
 
     // http://localhost:3000/register

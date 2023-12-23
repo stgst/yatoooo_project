@@ -12,10 +12,12 @@ router.use(fileUpload())
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, pwd TEXT)")
     db.run("CREATE TABLE IF NOT EXISTS clothes (id INTEGER PRIMARY KEY, name TEXT, shorts JSON, long JSON, pants JSON, skirts JSON)")
+    
+    // http://localhost:3000/upload/
 
     router.get('/', (req, res) => {
         if (req.session.loggedin) {
-            res.sendFile(path.resolve(__dirname + "../../public/upload.html"))
+            res.sendFile(path.resolve(__dirname + "../../views/upload.html"))
         } else {
             res.send('請先登入！')
         }
@@ -34,7 +36,7 @@ db.serialize(() => {
         if (!/^image/.test(img.mimetype)) return res.sendStatus(400);
 
         var img_name = username + '_' + timestamp + filename.substr(filename.lastIndexOf('.'))
-        img.mv(path.resolve(__dirname + '../../../data/images/' + img_name));
+        img.mv(path.resolve(__dirname + '../../public/images/' + img_name));
 
         // data/images/xiung_170256960.png
 
@@ -43,6 +45,8 @@ db.serialize(() => {
         const long = req.body.long
         const version = req.body.type
         const color = req.body.color
+
+        // 判斷式 ? true : false
 
         const long_type = long == "短版" ? "短版" : "長版"
         const version_type = version == "寬版" ? "寬版" : "窄版"

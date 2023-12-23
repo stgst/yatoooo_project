@@ -5,6 +5,8 @@ var dbFile = '../../../data/user.sqlite'
 
 const db = new sqlite3.Database(path.resolve(__dirname + dbFile), sqlite3.OPEN_READWRITE) // 定義一個 user.sqlite 的 database 物件
 const router = express.Router()
+// router.set('view engine', 'ejs');
+// router.set('views', path.join(__dirname, '/views'))
 
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, pwd TEXT)")
@@ -45,7 +47,7 @@ db.serialize(() => {
     });
 
     router.get('/', (req, res)=> {
-        res.sendFile(path.resolve(__dirname + '../../public/login.html'));
+        res.sendFile(path.resolve(__dirname + '../../views/login.html'));
     })
 })
 
