@@ -25,6 +25,8 @@ router.get('/closet/shorts', (req, res) => {
         var username = req.session.username
 
         db.all('SELECT * FROM clothes WHERE name = ?', [username], function(error, results) {
+            if (error) throw error
+
             if(results.length > 0){
                 if (results[0]['shorts'] != null){
                     var jdata = JSON.parse(results[0]['shorts'])
@@ -32,22 +34,108 @@ router.get('/closet/shorts', (req, res) => {
                     for(var item of jdata){
                         images_arr.push(item['imgName'])
                     }
-                    res.render('closet', {images: images_arr, alert: null})
+                    res.render('closet', {title: "短袖", images: images_arr, alert: null})
                 } else {
-                    res.render('closet', {images: null, alert: "暫無資料"})
+                    res.render('closet', {title: "短袖", images: null, alert: "暫無資料"})
                 }
             }else{ 
-                res.render('closet', {images: null, alert: "暫無資料"})
+                res.render('closet', {title: "短袖", images: null, alert: "暫無資料"})
             }
         })
 
     } else {
         res.send('請先登入！')
     }
+})
 
+router.get('/closet/long', (req, res) => {
+    
+    if (req.session.loggedin) {
+        
+        var username = req.session.username
 
+        db.all('SELECT * FROM clothes WHERE name = ?', [username], function(error, results) {
+            if (error) throw error
 
+            if(results.length > 0){
+                if (results[0]['long'] != null){
+                    var jdata = JSON.parse(results[0]['long'])
+                    var images_arr = []
+                    for(var item of jdata){
+                        images_arr.push(item['imgName'])
+                    }
+                    res.render('closet', {title: "長袖", images: images_arr, alert: null})
+                } else {
+                    res.render('closet', {title: "長袖", images: null, alert: "暫無資料"})
+                }
+            }else{ 
+                res.render('closet', {title: "長袖", images: null, alert: "暫無資料"})
+            }
+        })
 
+    } else {
+        res.send('請先登入！')
+    }
+})
+
+router.get('/closet/pants', (req, res) => {
+    
+    if (req.session.loggedin) {
+        
+        var username = req.session.username
+
+        db.all('SELECT * FROM clothes WHERE name = ?', [username], function(error, results) {
+            if (error) throw error
+
+            if(results.length > 0){
+                if (results[0]['pants'] != null){
+                    var jdata = JSON.parse(results[0]['pants'])
+                    var images_arr = []
+                    for(var item of jdata){
+                        images_arr.push(item['imgName'])
+                    }
+                    res.render('closet', {title: "褲子", images: images_arr, alert: null})
+                } else {
+                    res.render('closet', {title: "褲子", images: null, alert: "暫無資料"})
+                }
+            }else{ 
+                res.render('closet', {title: "褲子", images: null, alert: "暫無資料"})
+            }
+        })
+
+    } else {
+        res.send('請先登入！')
+    }
+})
+
+router.get('/closet/skirts', (req, res) => {
+    
+    if (req.session.loggedin) {
+        
+        var username = req.session.username
+
+        db.all('SELECT * FROM clothes WHERE name = ?', [username], function(error, results) {
+            if (error) throw error
+
+            if(results.length > 0){
+                if (results[0]['skirts'] != null){
+                    var jdata = JSON.parse(results[0]['skirts'])
+                    var images_arr = []
+                    for(var item of jdata){
+                        images_arr.push(item['imgName'])
+                    }
+                    res.render('closet', {title: "裙子", images: images_arr, alert: null})
+                } else {
+                    res.render('closet', {title: "裙子", images: null, alert: "暫無資料"})
+                }
+            }else{ 
+                res.render('closet', {title: "裙子", images: null, alert: "暫無資料"})
+            }
+        })
+
+    } else {
+        res.send('請先登入！')
+    }
 })
 
 module.exports = router;
