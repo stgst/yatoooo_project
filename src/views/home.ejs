@@ -39,14 +39,35 @@
 <body>
     <div id="weather-box">
         <h1>今日天氣</h1>
-        <p id="date">Date： <%=date%>
-        </p>
-        <p id="location">Location： <%=location%>
-        </p>
-        <p id="temperature">Temperature： <%=temperature%>
-        </p>
+        <p id="loading"> 載入中.. </p>
+        <p id="date"></p>
+        <p id="location"></p>
+        <p id="temperature"></p>
     </div>
 
+    <script>
+        const url =
+            "http://api.weatherstack.com/current?access_key=122fc1e6178fab2a85797f43b18519fd&query=Taipei&units=m";
+        // weatherstack的api
+
+        var loading_obj = document.getElementById('loading')
+        var date_obj = document.getElementById('date')
+        var location_obj = document.getElementById('location')
+        var temperature_obj = document.getElementById('temperature')
+
+        fetch(url).then(res => res.json())
+            .then(data => {
+                var date = data['location']['localtime']
+                var location = data['location']['name']
+                var temperature = data['current']['temperature']
+
+                loading_obj.setAttribute('hidden', true)
+                date_obj.innerText = `Date：${date}`
+                location_obj.innerText = `Location：${location}`
+                temperature_obj.innerText = `Temperature：${temperature}`
+
+            })
+    </script>
 </body>
 
 </html>

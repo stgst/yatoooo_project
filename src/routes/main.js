@@ -12,21 +12,8 @@ const fetch = require('node-fetch')
 
 router.get('/home', function (request, response) {
     if (request.session.loggedin) {
-
-        const url =
-            "http://api.weatherstack.com/current?access_key=122fc1e6178fab2a85797f43b18519fd&query=Taipei&units=m";
-        // weatherstack的api
-
-        fetch(url).then(res => res.json())
-        .then(data => {
-            var date = data['location']['localtime']
-            var location = data['location']['name']
-            var temperature = data['current']['temperature']
-            
-            response.render('home', {date: date, location: location, temperature: temperature})
-            response.end();
-        })
-
+        response.render('home')
+        response.end()
     } else {
         response.send('Please login to view this page!');
         response.end();
