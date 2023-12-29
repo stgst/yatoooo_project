@@ -13,6 +13,11 @@
         /* 清除 body 的預設 margin */
     }
 
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
     .box
 
     /*大框*/
@@ -30,7 +35,9 @@
         justify-content: center;
         /* 水平置中對齊 */
     }
-
+    .boxes {
+        display: flex
+    }
     .small-box
 
     /*小框*/
@@ -113,8 +120,19 @@
         <div class="box">
             <h1 class="box-title">我的衣櫃</h1>
         </div>
-        <div class="small-box">
-            <h3 class="box-title"><%=title%></h3>
+        <div class="boxes">
+            <div class="small-box">
+                <h3 class="box-title"><a href="/closet/shorts/">短袖</a></h3>
+            </div>
+            <div class="small-box">
+                <h3 class="box-title"><a href="/closet/long/">長袖</a></h3>
+            </div>
+            <div class="small-box">
+                <h3 class="box-title"><a href="/closet/pants">褲子</a></h3>
+            </div>
+            <div class="small-box">
+                <h3 class="box-title"><a href="/closet/skirts">裙子</a></h3>
+            </div>
         </div>
         <div class="cards">
             <% if (alert !=null) { %> <!-- 判斷是否有警示-->
@@ -122,9 +140,11 @@
                     <%=alert%>
                 </h1>
                 <%}else if (images){ for(var img of images){ %> <!-- ['123.png', '456.png', '789.png']-->
-                    <div class="card" style="background-image: url('/images/<%= img %>');"></div> <!-- /images/123.png-->
-                <% }} %>
+                    <div class="card" style="background-image: url('/images/<%= img %>');"></div>
+                    <!-- /images/123.png-->
+                    <% }} %>
         </div>
     </header>
 </body>
+
 </html>

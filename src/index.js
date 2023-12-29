@@ -26,11 +26,14 @@ const login_router = require('./routes/login')
 const register_router = require('./routes/register')
 const main_router = require('./routes/main')
 const upload_router = require('./routes/upload')
+const closet_rouer = require('./routes/closet')
 
 app.use('/login', login_router) // http://localhost:3000/login
 app.use('/register', register_router) // http://localhost:3000/register
 app.use('/', main_router) // http://localhost:3000/
 app.use('/upload', upload_router)
+app.use('/closet', closet_rouer)
+
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
