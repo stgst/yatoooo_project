@@ -16,6 +16,8 @@ router.get('/home', function (request, response) {
 
         const url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=<APIKEY>&StationId=C0A9F0&WeatherElement=AirTemperature"
         
+        // <APIKEY> 部分取代成授權碼
+
         fetch(url).then(res => res.json())
         .then(data => {
             var date = data.records.Station[0].ObsTime.DateTime

@@ -73,7 +73,7 @@ db.serialize(() => {
         }
     })
     
-    router.get('/closet/pants', (req, res) => {
+    router.get('/pants', (req, res) => {
         
         if (req.session.loggedin) {
             
