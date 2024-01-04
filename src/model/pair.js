@@ -35,7 +35,6 @@ function getShorts(username) {
     })
 }
 
-
 // 從資料庫讀取長袖資料，並亂數選擇
 function getLong(username) {
     return new Promise((resolve, reject) => {
@@ -63,10 +62,6 @@ function getLong(username) {
 
 function final_choose(version_type, username) {
     return new Promise((resolve, reject) => {
-
-        // 亂數選擇褲子或裙子，並亂數選擇長或短
-        // 0 = 褲子, 1 = 裙子
-        // 0 = 長, 1 = 短
 
         var type_choose = getRandomInt(2) == 0 ? "pants" : "skirts" // 0 或 1
         var long_choose = getRandomInt(2) == 0 ? "長版" : "短版" // 0 或 1
