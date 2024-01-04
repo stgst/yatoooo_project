@@ -14,7 +14,7 @@ const moment = require('moment')
 router.get('/home', function (request, response) {
     if (request.session.loggedin) {
 
-        const url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=CWB-FF49B18C-7FBD-4191-A36A-4037D0DF5353&StationId=C0A9F0&WeatherElement=Weather,Now,AirTemperature"
+        const url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=<APIKEY>&StationId=C0A9F0&WeatherElement=Weather,Now,AirTemperature"
         
         // <APIKEY> 部分取代成授權碼
 
