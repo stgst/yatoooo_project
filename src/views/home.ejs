@@ -27,9 +27,7 @@
             text-align: center;
         }
 
-        #temperature,
-        #location,
-        #date {
+        p {
             font-size: 20px;
             margin: 10px 0;
         }
@@ -39,9 +37,11 @@
 <body>
     <div id="weather-box">
         <h1>Today's Weather</h1>
-        <p id="date">Date：<%=date%></p>
-        <p id="location">Location：內湖區</p>
-        <p id="temperature">Temperature：<%=temperature%></p>
+        <p >Date：<%=date%></p>
+        <p >Location：內湖區</p>
+        <p >Temperature：<%=temperature%></p>
+        <p >Precipitation：<%=precipitation%>%</p>
+        <p >Weather：<%= weather%></p>
     </div>
 </body>
 

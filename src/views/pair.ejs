@@ -1,0 +1,120 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>隨機搭配</title>
+</head>
+
+<style>
+    body {
+        background-color: #F9F9ED;
+        margin: 0;
+        /* 清除 body 的預設 margin */
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .box
+
+    /*大框*/
+        {
+        margin: 25px;
+        background-color: #D9DBF1;
+        width: 200px;
+        height: 80px;
+        /* 調整高度 */
+        border-radius: 12px;
+        /* 圓角 */
+        display: flex;
+        align-items: center;
+        /* 垂直置中對齊 */
+        justify-content: center;
+        /* 水平置中對齊 */
+    }
+    .small-box
+
+    /*小框*/
+        {
+        margin: 25px;
+        background-color: #D9DBF1;
+        width: 100px;
+        height: 40px;
+        /* 調整高度 */
+        border-radius: 12px;
+        /* 圓角 */
+        display: flex;
+        align-items: center;
+        /* 垂直置中對齊 */
+        justify-content: center;
+        /* 水平置中對齊 */
+    }
+
+    .box-title
+
+    /*小卡大標*/
+        {
+        margin: 25px;
+        font-family: 'Roboto Slab', serif;
+    }
+
+    .flex {
+        display: flex;
+        align-items: center;
+        /*垂直置中對齊*/
+        justify-content: center;
+        /*水平置中對齊*/
+    }
+
+    .container {
+        width: 1200px;
+        margin: 0 auto;
+    }
+
+    .cards
+
+    /*位置*/
+        {
+        margin: 25px;
+        width: auto;
+        height: auto;
+        /*高度位置*/
+        flex-wrap: wrap;
+        /*設定flex可以多行*/
+        justify-content: flex-start;
+        /*靠左對齊*/
+        align-items: center;
+        /*垂直置中對齊*/
+    }
+
+    .card
+
+    /*小卡大小*/
+        {
+        background-color: #fff;
+        width: 250px;
+        height: 250px;
+        /*陰影*/
+        background-size: 100%;
+    }
+
+    .card-img {
+        width: 250px;
+        border-radius: 12px;
+        /*圓角*/
+    }
+</style>
+
+<body>
+    <header>
+        <div class="cards">
+            <div class="card" style="background-image: url('/images/<%= top %>');"></div>
+            <div class="card" style="background-image: url('/images/<%= bottom %>');"></div>
+        </div>
+    </header>
+</body>
+
+</html>
