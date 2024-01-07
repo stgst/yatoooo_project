@@ -13,6 +13,18 @@ db.serialize(() => {
     router.use(express.json()); // 讓 json 資料轉換成物件
     router.use(express.urlencoded({ extended: true }));
 
+    router.get('/', (req,res) => {
+        if (req.session.loggedin) {
+            
+            var username = req.session.username
+    
+            res.render('closet', {images: null, alert: null})
+    
+        } else {
+            res.send('請先登入！')
+        }
+    })
+
     router.get('/shorts', (req, res) => {
     
         if (req.session.loggedin) {

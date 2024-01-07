@@ -110,11 +110,20 @@
 
 <body>
     <header>
-        <div class="cards">
+        <div class="cards" id="cards" hidden>
             <div class="card" style="background-image: url('/images/<%= top %>');"></div>
             <div class="card" style="background-image: url('/images/<%= bottom %>');"></div>
         </div>
+
+        <button onclick="pair()">點我開始配對</button>
     </header>
+
+    <script>
+        function pair(){
+            const card = document.getElementById('cards')
+            card.removeAttribute("hidden")
+        }
+    </script>
 </body>
 
 </html>
