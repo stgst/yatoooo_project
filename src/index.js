@@ -18,7 +18,7 @@ app.use(session({
   cookie: { maxAge: 600 * 1000 }
 }));
 
-app.get('/', (req, res)=> {
+app.get('/', (req, res) => {
   res.send('hello world')
 })
 

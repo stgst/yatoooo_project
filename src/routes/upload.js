@@ -11,13 +11,14 @@ router.use(fileUpload())
 
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, pwd TEXT)")
-    db.run("CREATE TABLE IF NOT EXISTS clothes (id INTEGER PRIMARY KEY, name TEXT, shorts JSON, long JSON, pants JSON, skirts JSON)")
-    
+    db.run("CREATE TABLE IF NOT EXISTS clothes (id INTEGER PRIMARY KEY, name TEXT, shorts JSON, long JSON, pants JSON, skirts JSON, favorite JSON)")
+
     // http://localhost:3000/upload/
 
     router.get('/', (req, res) => {
         if (req.session.loggedin) {
-            res.sendFile(path.resolve(__dirname + "../../views/upload.html"))
+            const status = req.query.success;
+            res.render('upload', { status: status })
         } else {
             res.send('請先登入！')
         }
@@ -53,91 +54,42 @@ db.serialize(() => {
 
         switch (kind) {
             case "短袖":
-                var params = { 'imgName': img_name, 'long_type': long_type, 'version_type': version_type, 'colors': color }
-                db.serialize(() => {
-                    db.all('SELECT * FROM clothes WHERE name = ?', username, (error, results) => {
-                        if (error) throw error
-
-                        if (results.length > 0) { //有資料
-                            if (results[0]['shorts'] == null) { // 如果 shorts 的欄位是空的
-                                db.run('UPDATE clothes SET shorts=? WHERE name=?', [`[${JSON.stringify(params)}]`, username])
-                            } else { // 否則讀取原本的資料再新增並更新
-                                var jdata = JSON.parse(results[0]['shorts'])
-                                jdata.push(params)
-                                db.run('UPDATE clothes SET shorts=? WHERE name=?', [JSON.stringify(jdata), username])
-                            }
-                        } else { // 如果整個資料沒有建立過
-                            db.run('INSERT INTO clothes (name, shorts) VALUES (?, ?)', [username, `[${JSON.stringify(params)}]`])
-                        }
-                    })
-                })
+                var type = "shorts";
                 break
             case "長袖":
-                var params = { 'imgName': img_name, 'long_type': long_type, 'version_type': version_type, 'colors': color }
-                db.serialize(() => {
-                    db.all('SELECT * FROM clothes WHERE name = ?', username, (error, results) => {
-                        if (error) throw error
-
-                        if (results.length > 0) { //有資料
-                            if (results[0]['long'] == null) { // 如果 long 的欄位是空的
-                                db.run('UPDATE clothes SET long=? WHERE name=?', [`[${JSON.stringify(params)}]`, username])
-                            } else { // 否則讀取原本的資料再新增並更新
-                                var jdata = JSON.parse(results[0]['long'])
-                                jdata.push(params)
-                                db.run('UPDATE clothes SET long=? WHERE name=?', [JSON.stringify(jdata), username])
-                            }
-                        } else { // 如果整個資料沒有建立過
-                            db.run('INSERT INTO clothes (name, long) VALUES (?, ?)', [username, `[${JSON.stringify(params)}]`])
-                        }
-                    })
-                })
+                var type = "long";
                 break
             case "褲子":
-                var params = { 'imgName': img_name, 'long_type': long_type, 'version_type': version_type, 'colors': color }
-                db.serialize(() => {
-                    db.all('SELECT * FROM clothes WHERE name = ?', username, (error, results) => {
-                        if (error) throw error
-
-                        if (results.length > 0) { //有資料
-                            if (results[0]['pants'] == null) { // 如果 pants 的欄位是空的
-                                db.run('UPDATE clothes SET pants=? WHERE name=?', [`[${JSON.stringify(params)}]`, username])
-                            } else { // 否則讀取原本的資料再新增並更新
-                                var jdata = JSON.parse(results[0]['pants'])
-                                jdata.push(params)
-                                db.run('UPDATE clothes SET pants=? WHERE name=?', [JSON.stringify(jdata), username])
-                            }
-                        } else { // 如果整個資料沒有建立過
-                            db.run('INSERT INTO clothes (name, pants) VALUES (?, ?)', [username, `[${JSON.stringify(params)}]`])
-                        }
-                    })
-                })
+                var type = "pants";
                 break
             case "裙子":
-                var params = { 'imgName': img_name, 'long_type': long_type, 'version_type': version_type, 'colors': color }
-                db.serialize(() => {
-                    db.all('SELECT * FROM clothes WHERE name = ?', username, (error, results) => {
-                        if (error) throw error
-
-                        if (results.length > 0) { //有資料
-                            if (results[0]['skirts'] == null) { // 如果 skirts 的欄位是空的
-                                db.run('UPDATE clothes SET skirts=? WHERE name=?', [`[${JSON.stringify(params)}]`, username])
-                            } else { // 否則讀取原本的資料再新增並更新
-                                var jdata = JSON.parse(results[0]['skirts'])
-                                jdata.push(params)
-                                db.run('UPDATE clothes SET skirts=? WHERE name=?', [JSON.stringify(jdata), username])
-                            }
-                        } else { // 如果整個資料沒有建立過
-                            db.run('INSERT INTO clothes (name, skirts) VALUES (?, ?)', [username, `[${JSON.stringify(params)}]`])
-                        }
-                    })
-                })
+                var type = "skirts";
                 break
             default:
                 res.sendStatus(400)
                 break
         }
 
-        res.sendStatus(200);
+        var params = { 'imgName': img_name, 'long_type': long_type, 'version_type': version_type, 'colors': color }
+        db.serialize(() => {
+            db.all('SELECT * FROM clothes WHERE name = ?', username, (error, results) => {
+                if (error) throw error
+
+                if (results.length > 0) { //有資料
+                    if (results[0][type] == null) { // 如果 shorts 的欄位是空的
+                        db.run(`UPDATE clothes SET ${type}=? WHERE name=?`, [`[${JSON.stringify(params)}]`, username])
+                    } else { // 否則讀取原本的資料再新增並更新
+                        var jdata = JSON.parse(results[0][type])
+                        jdata.push(params)
+                        db.run(`UPDATE clothes SET ${type}=? WHERE name=?`, [JSON.stringify(jdata), username])
+                    }
+                } else { // 如果整個資料沒有建立過
+                    db.run(`INSERT INTO clothes (name, ${type}) VALUES (?, ?)`, [username, `[${JSON.stringify(params)}]`])
+                }
+            })
+        })
+
+        res.redirect('/upload?success=true')
     })
 })
 

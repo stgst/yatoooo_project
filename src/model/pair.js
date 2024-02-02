@@ -60,6 +60,7 @@ function getLong(username) {
     })
 }
 
+//選擇下衣
 function final_choose(version_type, username) {
     return new Promise((resolve, reject) => {
 

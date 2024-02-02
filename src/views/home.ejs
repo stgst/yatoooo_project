@@ -1,237 +1,259 @@
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title></title>
-        <style>
-           body
-           {
-                background-color:#d0d0ce;/*dce3e4*/
-                
-           }
 
-           a
-           {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style>
+        body {
+            background-color: #d0d0ce;
+            /*dce3e4*/
+
+        }
+
+        a {
             text-decoration: none;
-           }
+        }
 
-           .wrap
-            {
-                width: auto;
-                margin: 0 auto;
-            }
+        .wrap {
+            width: auto;
+            margin: 0 auto;
+        }
 
-            .Header
-            {
-                height: 200px;
-                text-align: right;
-                line-height: 200px;
-            }
+        .Header {
+            height: 200px;
+            text-align: right;
+            line-height: 200px;
+        }
 
-            .Footer
-            {
-                height: 50px;
-                text-align: right;
-                padding: 50;
-                line-height: 50px;
-            }
+        .Footer {
+            height: 50px;
+            text-align: right;
+            padding: 50;
+            line-height: 50px;
+        }
 
-            .body
-            {
-                height: 350px;
-                line-height: 25px;
-                text-align: center;
-                display:flex;
-                justify-content: center; /*靠主軸中心點對齊(置中對齊)*/
-                align-items: center;
-            }
+        .body {
+            height: 350px;
+            line-height: 25px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            /*靠主軸中心點對齊(置中對齊)*/
+            align-items: center;
+        }
 
-            .cards/*位置*/
-            {
-                width: auto;
-                height:100%; /*高度位置*/
-                display:flex;
-                flex-wrap:wrap; /*設定flex可以多行*/
-                justify-content: space-around; /*平均分配間距*/
-                align-items: center; /*垂直置中對齊*/
-            }
+        .cards
 
-            .login
+        /*位置*/
             {
-                padding: 50px;
-                float:right;
-            }
+            width: auto;
+            height: 100%;
+            /*高度位置*/
+            display: flex;
+            flex-wrap: wrap;
+            /*設定flex可以多行*/
+            justify-content: space-around;
+            /*平均分配間距*/
+            align-items: center;
+            /*垂直置中對齊*/
+        }
 
-            .logo-img
-            {
-                max-width: 100%;
-                max-height: 100%;
-                width: 200px;
-                height: 200px;
-                float:left;
-                padding: auto;
-                z-index: 1;
-            }
+        .login {
+            padding: 50px;
+            float: right;
+        }
 
-            .btn /* 按鈕樣式設定 */
-            {
-                display: inline-block;
-                position: relative;
-                z-index: 2;
-                width: 250px;
-                height: 250px;
-                background: #f1ecec;
-                border: 2px solid #d2bfae; /* 按鈕邊框樣式及顏色 */
-                border-radius: 12px; /* 按鈕邊框圓角 */
-                color: #00000084;
-                font-size: 1rem; /* 按鈕文字大小 */
-                text-transform: uppercase;  
-                font-weight: bold;
-                text-align: top; /* 文字居中 */
-                text-decoration: none; /* 移除文字下劃線 */
-                overflow: hidden;
-                transition: 0.5s; /* 添加過渡效果，時長為0.5秒 */
-                padding: 20px; /* 內邊距設定 */
-                margin: 15px; /* 設定按鈕間的外邊距 */
-            }
-            .btn img
-            {
-                max-width: 100%; /* 保證圖片不超出按鈕 */
-                max-height: 100%; /* 保證圖片不超出按鈕 */
-                display: block; /* 移除底部空白間距 */
-                margin: 10px auto 10px; /* 居中顯示，並添加底部間距 */
-                z-index: 1;
-            }
-            .btn span /* 按鈕內的子元素樣式設定 */
-            {
-                position: absolute;
-                width: 28%; /* 子元素寬度為父元素寬度的25% */
-                height: 350%; /* 子元素高度為父元素高度的100% */
-                background-color:#ecd8c6;
-                transform: translateY(150%);
-                border-radius: 40%;
-                left: calc((var(--n) - 2) * 40%); /*置中*/
-                transition: 0.5s;
-                transition-delay: calc((var(--n) - 1) * 0.1s);
-                z-index: -1;
-                
-            }
-            .btn:hover,
-            .btn:focus 
-            {
-                color: black;
-            }
-            .btn:hover span 
-            {
-                transform: translateY(0) scale(2);
-            }
-            .btn span:nth-child(1) 
-            {
-                --n: 1;
-            }
-            .btn span:nth-child(2) 
-            {
-               --n: 2;
-            }
-            .btn span:nth-child(3) 
-            {
-                --n: 3;
-            }
-            .btn span:nth-child(4) 
-            {
-                --n: 4;
-            }
+        .logo-img {
+            max-width: 100%;
+            max-height: 100%;
+            width: 200px;
+            height: 200px;
+            float: left;
+            padding: auto;
+            z-index: 1;
+        }
 
-            .shape-ex11
+        .btn
+
+        /* 按鈕樣式設定 */
             {
-                width: 150px;
-                height: 40px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                cursor: pointer;
-                line-height: 40px;
-                color: #000;
-                background-color: transparent;
-                position: relative;
-                transition: all .3s linear;
-            }
-            .shape-ex11 > p
+            display: inline-block;
+            position: relative;
+            z-index: 2;
+            width: 250px;
+            height: 250px;
+            background: #f1ecec;
+            border: 2px solid #d2bfae;
+            /* 按鈕邊框樣式及顏色 */
+            border-radius: 12px;
+            /* 按鈕邊框圓角 */
+            color: #00000084;
+            font-size: 1rem;
+            /* 按鈕文字大小 */
+            text-transform: uppercase;
+            font-weight: bold;
+            text-align: top;
+            /* 文字居中 */
+            text-decoration: none;
+            /* 移除文字下劃線 */
+            overflow: hidden;
+            transition: 0.5s;
+            /* 添加過渡效果，時長為0.5秒 */
+            padding: 20px;
+            /* 內邊距設定 */
+            margin: 15px;
+            /* 設定按鈕間的外邊距 */
+        }
+
+        .btn img {
+            max-width: 100%;
+            /* 保證圖片不超出按鈕 */
+            max-height: 100%;
+            /* 保證圖片不超出按鈕 */
+            display: block;
+            /* 移除底部空白間距 */
+            margin: 10px auto 10px;
+            /* 居中顯示，並添加底部間距 */
+            z-index: 1;
+        }
+
+        .btn span
+
+        /* 按鈕內的子元素樣式設定 */
             {
-                position: relative;
-                z-index: 1;
-            }
-            .shape-ex11::before
-            {
-                content: "";
-                width: 20px;
-                height: 20px;
-                display: block;
-                box-sizing: border-box;
-                border-top: 1px solid #000;
-                border-left: 1px solid #000;
-                position: absolute;
-                top: 0;
-                left: 0;
-                transition: all .3s linear;
-            }
-            .shape-ex11::after
-            {
-                content: "";
-                width: 20px;
-                height: 20px;
-                display: block;
-                box-sizing: border-box;
-                border-bottom: 1px solid #000;
-                border-right: 1px solid #000;
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                transition: all .3s ease;
-            }
-            .shape-ex11:hover::before,
-            .shape-ex11:hover::after
-            {
-                width: 100%;
-                height: 100%;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="wrap">
-            <div class="Header">
-                <img class="logo-img" src="/resources/Attire.png" alt="logo"><!--class="card-img"-->
-                <div class="login">
-                    <a href="/login">
+            position: absolute;
+            width: 28%;
+            /* 子元素寬度為父元素寬度的25% */
+            height: 350%;
+            /* 子元素高度為父元素高度的100% */
+            background-color: #ecd8c6;
+            transform: translateY(150%);
+            border-radius: 40%;
+            left: calc((var(--n) - 2) * 40%);
+            /*置中*/
+            transition: 0.5s;
+            transition-delay: calc((var(--n) - 1) * 0.1s);
+            z-index: -1;
+
+        }
+
+        .btn:hover,
+        .btn:focus {
+            color: black;
+        }
+
+        .btn:hover span {
+            transform: translateY(0) scale(2);
+        }
+
+        .btn span:nth-child(1) {
+            --n: 1;
+        }
+
+        .btn span:nth-child(2) {
+            --n: 2;
+        }
+
+        .btn span:nth-child(3) {
+            --n: 3;
+        }
+
+        .btn span:nth-child(4) {
+            --n: 4;
+        }
+
+        .shape-ex11 {
+            width: 150px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            line-height: 40px;
+            color: #000;
+            background-color: transparent;
+            position: relative;
+            transition: all .3s linear;
+        }
+
+        .shape-ex11>p {
+            position: relative;
+            z-index: 1;
+        }
+
+        .shape-ex11::before {
+            content: "";
+            width: 20px;
+            height: 20px;
+            display: block;
+            box-sizing: border-box;
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all .3s linear;
+        }
+
+        .shape-ex11::after {
+            content: "";
+            width: 20px;
+            height: 20px;
+            display: block;
+            box-sizing: border-box;
+            border-bottom: 1px solid #000;
+            border-right: 1px solid #000;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            transition: all .3s ease;
+        }
+
+        .shape-ex11:hover::before,
+        .shape-ex11:hover::after {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="Header">
+            <img class="logo-img" src="/resources/Attire.png" alt="logo"><!--class="card-img"-->
+            <div class="login">
+                <a href="/login">
                     <div class="shape-ex11">
                         <p>
                             Login
                         </p>
                     </div>
-                    </a>
-                </div>
+                </a>
             </div>
-            <div class="body">
-                <span class="cards">
-                    <a href="/closet" class="btn">
-                        我的衣櫃
-                        <img class="card-img" src="/resources/closet.png" alt="我的衣櫃">
-                        <span></span><span></span><span></span><span></span>
-                    </a>
-                    <a href="/upload" class="btn">
-                        上傳照片
-                        <img class="card-img" src="/resources/upload.jpg" alt="上傳照片">
-                        <span></span><span></span><span></span><span></span>
-                    </a>
-                    <a href="/pair" class="btn">
-                        搭配衣服
-                        <img class="card-img" src="/resources/cloth.jpg" alt="搭配衣服">
-                        <span></span><span></span><span></span><span></span>
-                        <!--onclick="location.href=''"-->
-                    </a>
-                </span>
-            </div>
-            <div class="Footer"></div>
         </div>
-    </body>
+        <div class="body">
+            <span class="cards">
+                <a href="/closet" class="btn">
+                    我的衣櫃
+                    <img class="card-img" src="/resources/closet.png" alt="我的衣櫃">
+                    <span></span><span></span><span></span><span></span>
+                </a>
+                <a href="/upload" class="btn">
+                    上傳照片
+                    <img class="card-img" src="/resources/upload.jpg" alt="上傳照片">
+                    <span></span><span></span><span></span><span></span>
+                </a>
+                <a href="/pair" class="btn">
+                    搭配衣服
+                    <img class="card-img" src="/resources/cloth.jpg" alt="搭配衣服">
+                    <span></span><span></span><span></span><span></span>
+                    <!--onclick="location.href=''"-->
+                </a>
+            </span>
+        </div>
+        <div class="Footer"></div>
+    </div>
+</body>
+
 </html>

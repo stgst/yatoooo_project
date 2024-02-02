@@ -8,10 +8,10 @@ const router = express.Router()
 
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, pwd TEXT)")
-    db.run("CREATE TABLE IF NOT EXISTS clothes (id INTEGER PRIMARY KEY, name TEXT, shorts JSON, long JSON, pants JSON, skirts JSON)")
+    db.run("CREATE TABLE IF NOT EXISTS clothes (id INTEGER PRIMARY KEY, name TEXT, shorts JSON, long JSON, pants JSON, skirts JSON, favorite JSON)")
     // http://localhost:3000/register/
 
-    router.get('/', (req, res)=> {
+    router.get('/', (req, res) => {
         res.sendFile(path.resolve(__dirname + '../../views/register.html'));
     })
 
@@ -20,14 +20,14 @@ db.serialize(() => {
 
         let username = request.body.name;
         let password = request.body.pwd;
-        
+
         if (username && password) {
 
-            db.all('SELECT * FROM users WHERE name = ? OR pwd = ?', [username, password], function(error, results) {
-                
+            db.all('SELECT * FROM users WHERE name = ? OR pwd = ?', [username, password], function (error, results) {
+
                 if (error) throw error;
 
-                if (results.length > 0){
+                if (results.length > 0) {
                     response.send('Username or password already exist.');
                 } else {
                     db.run('INSERT INTO users (name, pwd) VALUES (?, ?)', [username, password])

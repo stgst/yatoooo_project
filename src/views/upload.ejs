@@ -1,6 +1,10 @@
 <HTML>
-    <html>
-        <body>
+<html>
+
+<body>
+    <% if(status){%>
+        <script>alert('上傳成功！')</script>
+        <%}%>
             <form action="http://localhost:3000/upload" method="post" enctype="multipart/form-data">
                 <label for="img">選擇圖片:</label>
                 <input type="file" id="img" name="img" accept="image/*">
@@ -12,12 +16,12 @@
                     <label><input type="radio" name="kind" value="裙子">裙子</label>
                 </p>
                 <p>
-                    <label >長度:</label> <!--long 單選 radio-->
+                    <label>長度:</label> <!--long 單選 radio-->
                     <label><input type="radio" name="long" value="短版">短版</label>
                     <label><input type="radio" name="long" value="長版">長版</label>
                 </p>
                 <p>
-                    <label >款式:</label> <!--type 多選 radio-->
+                    <label>款式:</label> <!--type 多選 radio-->
                     <label><input type="radio" name="type" value="寬版">寬版</label>
                     <label><input type="radio" name="type" value="窄版">窄版</label>
                 </p>
@@ -41,18 +45,20 @@
                 const imageInput = document.getElementById('img');
                 const previewImage = document.getElementById('previewImage');
                 function previewSelectedImage() {
-                   const file = imageInput.files[0];
-                   if (file) {
-                      const reader = new FileReader();
-                      reader.readAsDataURL(file);
-                      reader.onload = function(e) {
-                         previewImage.src = e.target.result;
-                         previewImage.removeAttribute('hidden')
-                      }
-                   }
+                    const file = imageInput.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function (e) {
+                            previewImage.src = e.target.result;
+                            previewImage.removeAttribute('hidden')
+                        }
+                    }
                 }
                 imageInput.addEventListener('change', previewSelectedImage);
-             </script>
-        </body>
-    </html>
+            </script>
+</body>
+
+</html>
+
 </HTML>

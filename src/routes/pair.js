@@ -5,33 +5,36 @@ const fetch = require('node-fetch')
 
 router.get('/', function (request, response) {
     if (request.session.loggedin) {
+        response.render('pair', { btn_name: '開始配對', top: null, bottom: null, hidden: true })
+    }
+})
+
+router.get('/process', function (request, response) {
+    if (request.session.loggedin) {
 
         var username = request.session.username
-        const url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=CWB-FF49B18C-7FBD-4191-A36A-4037D0DF5353&StationId=C0A9F0&WeatherElement=AirTemperature"
-        
+        const url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=<APIKEY>&StationId=C0A9F0&WeatherElement=AirTemperature"
+
         // <APIKEY> 部分取代成授權碼
 
         fetch(url).then(res => res.json())
-        .then(async (data) => {
+            .then(async (data) => {
 
-            var temperature = data.records.Station[0].WeatherElement.AirTemperature
+                var temperature = data.records.Station[0].WeatherElement.AirTemperature
 
-            if (temperature >= 20){
-                var top = await pair.getShorts(username)
-                var bottom = await pair.final_choose(top[1], username)
+                if (temperature >= 20) {
+                    var top = await pair.getShorts(username)
+                    var bottom = await pair.final_choose(top[1], username)
 
-                response.render('pair', {top: top[0], bottom: bottom})
+                } else if (temperature < 20) {
+                    var top = await pair.getLong(username)
+                    var bottom = await pair.final_choose(top[1], username)
+                }
+
+                response.render('pair', { btn_name: '重新配對', top: top[0], bottom: bottom, hidden: false })
                 response.end();
+            })
 
-            }else if (temperature < 20){
-                var top = await pair.getLong(username)
-                var bottom = await pair.final_choose(top[1], username)
-
-                response.render('pair', {top: top[0], bottom: bottom})
-                response.end();
-            }
-        })
-        
     } else {
         response.send('Please login to view this page!');
         response.end();

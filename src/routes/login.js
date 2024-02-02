@@ -10,34 +10,34 @@ const router = express.Router()
 
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, pwd TEXT)")
-    db.run("CREATE TABLE IF NOT EXISTS clothes (id INTEGER PRIMARY KEY, name TEXT, shorts JSON, long JSON, pants JSON, skirts JSON)")
+    db.run("CREATE TABLE IF NOT EXISTS clothes (id INTEGER PRIMARY KEY, name TEXT, shorts JSON, long JSON, pants JSON, skirts JSON, favorite JSON)")
 
     router.use(express.json()); // 讓 json 資料轉換成物件
     router.use(express.urlencoded({ extended: true }));
 
     // http://localhost:3000/auth
-    router.post('/auth', function(request, response) {
-        
+    router.post('/auth', function (request, response) {
+
         // name, pwd ( 表單 )
 
         let username = request.body.name;
         let password = request.body.pwd;
-        
+
         if (username && password) {
-            
-            db.all('SELECT * FROM users WHERE name = ? AND pwd = ?', [username, password], function(error, results) {
-                
+
+            db.all('SELECT * FROM users WHERE name = ? AND pwd = ?', [username, password], function (error, results) {
+
                 if (error) throw error;
-                
+
                 if (results.length > 0) {
-                    
+
                     request.session.loggedin = true;
                     request.session.username = username;
 
                     response.redirect('/home');
                 } else {
                     response.send('Incorrect Username and/or Password!');
-                }			
+                }
                 response.end();
             });
         } else {
@@ -46,7 +46,7 @@ db.serialize(() => {
         }
     });
 
-    router.get('/', (req, res)=> {
+    router.get('/', (req, res) => {
         res.sendFile(path.resolve(__dirname + '../../views/login.html'));
     })
 })

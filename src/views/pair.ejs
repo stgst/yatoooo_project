@@ -35,6 +35,7 @@
         justify-content: center;
         /* 水平置中對齊 */
     }
+
     .small-box
 
     /*小框*/
@@ -110,20 +111,19 @@
 
 <body>
     <header>
-        <div class="cards" id="cards" hidden>
-            <div class="card" style="background-image: url('/images/<%= top %>');"></div>
-            <div class="card" style="background-image: url('/images/<%= bottom %>');"></div>
-        </div>
+        <% if (hidden) { %>
+            <div class="cards" id="cards" hidden>
+                <% } else { %>
+                    <div class="cards" id="cards">
+                        <% } %>
+                            <div class="card" style="background-image: url('/images/<%= top %>');"></div>
+                            <div class="card" style="background-image: url('/images/<%= bottom %>');"></div>
+                    </div>
 
-        <button onclick="pair()">點我開始配對</button>
+                    <button onclick="location.href='/pair/process';">
+                        <%= btn_name%>
+                    </button>
     </header>
-
-    <script>
-        function pair(){
-            const card = document.getElementById('cards')
-            card.removeAttribute("hidden")
-        }
-    </script>
 </body>
 
 </html>
