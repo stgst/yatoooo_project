@@ -18,9 +18,7 @@ app.use(session({
   cookie: { maxAge: 600 * 1000 }
 }));
 
-app.get('/', (req, res) => {
-  res.send('hello world')
-})
+
 
 const login_router = require('./routes/login')
 const register_router = require('./routes/register')
@@ -28,6 +26,7 @@ const main_router = require('./routes/main')
 const upload_router = require('./routes/upload')
 const closet_router = require('./routes/closet')
 const pair_router = require('./routes/pair')
+const profile_router = require('./routes/profile')
 
 app.use('/login', login_router) // http://localhost:3000/login
 app.use('/register', register_router) // http://localhost:3000/register
@@ -35,8 +34,13 @@ app.use('/', main_router) // http://localhost:3000/
 app.use('/upload', upload_router)
 app.use('/closet', closet_router)
 app.use('/pair', pair_router)
+app.use('/profile', profile_router)
 
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
+})
+
+app.get('/', (req, res) => {
+  res.send('hello world')
 })
