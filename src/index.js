@@ -27,6 +27,7 @@ const upload_router = require('./routes/upload')
 const closet_router = require('./routes/closet')
 const pair_router = require('./routes/pair')
 const profile_router = require('./routes/profile')
+const vote_router = require('./routes/vote')
 
 app.use('/login', login_router) // http://localhost:3000/login
 app.use('/register', register_router) // http://localhost:3000/register
@@ -35,6 +36,7 @@ app.use('/upload', upload_router)
 app.use('/closet', closet_router)
 app.use('/pair', pair_router)
 app.use('/profile', profile_router)
+app.use('/vote', vote_router)
 
 
 app.listen(port, () => {

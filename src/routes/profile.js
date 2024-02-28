@@ -48,33 +48,29 @@ db.serialize(() => {
     })
 
     router.get("/", (req, res) => {
-        if (req.session.loggedin) {
 
-            var username = req.session.username
+        var username = req.session.username
 
-            db.all('SELECT * FROM clothes WHERE name = ?', [username], function (error, results) {
-                if (error) throw error
+        db.all('SELECT * FROM clothes WHERE name = ?', [username], function (error, results) {
+            if (error) throw error
 
-                if (results.length > 0) {
-                    if (results[0]['favorite'] != null) {
-                        var jdata = JSON.parse(results[0]['favorite'])
-                        var images_arr = []
-                        for (item of jdata){
-                            images_arr.push(JSON.stringify(item))
-                        }
-
-                        res.render('profile', { images: images_arr, alert: null })
-                    } else {
-                        res.render('profile', { images: null, alert: "暫無資料" })
+            if (results.length > 0) {
+                if (results[0]['favorite'] != null) {
+                    var jdata = JSON.parse(results[0]['favorite'])
+                    var images_arr = []
+                    for (item of jdata) {
+                        images_arr.push(JSON.stringify(item))
                     }
+                    
+                    res.render('profile', { images: images_arr, alert: null })
+
                 } else {
                     res.render('profile', { images: null, alert: "暫無資料" })
                 }
-            })
-        } else {
-            res.send('請先登入！')
-        }
-
+            } else {
+                res.render('profile', { images: null, alert: "暫無資料" })
+            }
+        })
     })
 })
 
