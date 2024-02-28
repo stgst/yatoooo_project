@@ -17,8 +17,6 @@ db.serialize(() => {
     router.get('/', (req, res) => {
         if (req.session.loggedin) {
 
-            var username = req.session.username
-
             db.all('SELECT * FROM clothes', function (error, results) {
                 if (error) throw error
 
