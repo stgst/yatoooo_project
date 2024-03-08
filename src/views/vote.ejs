@@ -134,14 +134,15 @@
             <h1>
                 <%=alert%>
             </h1>
-            <%}else if (images && ids){ for(const [index, item] of images.entries()){ %>
-                <!-- ['123.png', '456.png', '789.png']-->
+            <%}else if (images){ for(const [index, item] of images.entries()){ %>
                 <div class="mix">
                     <div class="card" style="background-image: url('/images/<%= JSON.parse(item).up %>');"></div>
                     <div class="card" style="background-image: url('/images/<%= JSON.parse(item).off %>');"></div>
                 </div>
-                <span><%=ids[index]%></span>
-                <!-- /images/123.png-->
+                <span>共 <%= JSON.parse(item).like %> 讚數</span>
+                <span><%= JSON.parse(item).id %></span>
+                <br>
+                <button onclick='location.href=`/vote/like?id=<%=JSON.parse(item).id%>&index=<%=JSON.parse(item).index%>`; '>按讚</button>
             <% }} %>
     </div>
 </body>

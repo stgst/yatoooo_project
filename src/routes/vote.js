@@ -19,37 +19,45 @@ db.serialize(() => {
 
             db.all('SELECT * FROM clothes', function (error, results) {
                 if (error) throw error
-
                 if (results.length > 0) {
                     var images_arr = []
-                    var ids = []
                     for (favorites of results) {
                         data = favorites['favorite']
                         if (data != null) {
                             var jdata = JSON.parse(data)
-
+                            var indexs = 0
                             for (item of jdata) {
+                                item['id'] = favorites['name']
+                                item['index'] = indexs
                                 images_arr.push(JSON.stringify(item))
-                                ids.push(favorites['name'])
+                                indexs+=1
                             }
-
                             continue
-
                         } else continue
                     }
-                    if( images_arr.length <= 0 ){
-                        res.render('vote', { images: null, alert: "暫無資料" })
-                    }else {
-                        res.render('vote', { images: images_arr, ids: ids, alert: null })
-                    }
-                } else {
-                    res.render('vote', { images: null, alert: "暫無資料" })
-                }
+                    if( images_arr.length <= 0 ) res.render('vote', { images: null, alert: "暫無資料" })
+                    else res.render('vote', { images: images_arr, alert: null })
+                } else res.render('vote', { images: null, alert: "暫無資料" })
             })
 
-        } else {
-            res.send('請先登入！')
-        }
+        } else res.send('請先登入！')
+    })
+
+    router.get('/like', (req, res) => {
+        if (req.session.loggedin) {
+            var username = req.query.id
+            var index = req.query.index
+            db.all('SELECT * FROM clothes WHERE name = ?', username, (error, results) => {
+                if (error) throw error
+                if (results.length > 0) {
+                    var data = JSON.parse(results[0]['favorite'])
+                    data[index]['like']+=1
+
+                    db.run(`UPDATE clothes SET favorite=? WHERE name=?`, [JSON.stringify(data), username])
+                }
+            })
+            res.redirect('/vote')
+        } else res.send('請先登入！')
     })
 })
 
