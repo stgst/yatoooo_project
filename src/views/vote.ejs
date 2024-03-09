@@ -139,7 +139,7 @@
                     <div class="card" style="background-image: url('/images/<%= JSON.parse(item).up %>');"></div>
                     <div class="card" style="background-image: url('/images/<%= JSON.parse(item).off %>');"></div>
                 </div>
-                <span>共 <%= JSON.parse(item).like %> 讚數</span>
+                <span>共 <%= JSON.parse(item).like.length %> 讚數</span>
                 <span><%= JSON.parse(item).id %></span>
                 <br>
                 <button onclick='location.href=`/vote/like?id=<%=JSON.parse(item).id%>&index=<%=JSON.parse(item).index%>`; '>按讚</button>

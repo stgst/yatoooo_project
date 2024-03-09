@@ -55,7 +55,7 @@ router.get('/callback', (request, response) => {
         db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, pwd TEXT)")
         db.run("CREATE TABLE IF NOT EXISTS clothes (id INTEGER PRIMARY KEY, name TEXT, shorts JSON, long JSON, pants JSON, skirts JSON, favorite JSON)")
         
-        var params = {'up': up, 'off': off, 'like': 0}
+        var params = {'up': up, 'off': off, 'like': []}
         db.serialize(() => {
             db.all('SELECT * FROM clothes WHERE name = ?', username, (error, results) => {
                 if (error) throw error

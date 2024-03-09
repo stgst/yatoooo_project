@@ -45,15 +45,24 @@ db.serialize(() => {
 
     router.get('/like', (req, res) => {
         if (req.session.loggedin) {
-            var username = req.query.id
+            var username = req.session.username
+            var id = req.query.id
             var index = req.query.index
-            db.all('SELECT * FROM clothes WHERE name = ?', username, (error, results) => {
+            db.all('SELECT * FROM clothes WHERE name = ?', id, (error, results) => {
                 if (error) throw error
                 if (results.length > 0) {
                     var data = JSON.parse(results[0]['favorite'])
-                    data[index]['like']+=1
+                    var c = false
+                    for ( item of data[index]['like']) {
+                        if(item == username){
+                            c = true
+                        }
+                    }
+                    if(!c){
+                        data[index]['like'].push(username)
+                    }
 
-                    db.run(`UPDATE clothes SET favorite=? WHERE name=?`, [JSON.stringify(data), username])
+                    db.run(`UPDATE clothes SET favorite=? WHERE name=?`, [JSON.stringify(data), id])
                 }
             })
             res.redirect('/vote')
